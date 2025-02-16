@@ -1,0 +1,19 @@
+<html>
+  <h1>hello world</h1>
+  <button onclick="doLogin()">Login</button>
+  <br>
+  <button onclick="getUser()">Get User</button>
+  <script>
+    const invoke = window.__TAURI__.core.invoke;
+
+    async function doLogin(){
+      let result = await invoke("login", {username: 'mogu', password: '123'})
+      console.log(result)
+    }
+
+    async function getUser(){
+      const user = await invoke("get_user")
+      console.log(user)
+    }
+  </script>
+</html>
