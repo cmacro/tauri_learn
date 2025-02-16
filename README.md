@@ -1,3 +1,3 @@
 # Rust Tauri App
 
-learing Rust Tauri code 
+Learning Rust Tauri code 
