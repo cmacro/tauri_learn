@@ -1,19 +1,34 @@
 <html>
-  <h1>hello world</h1>
-  <button onclick="doLogin()">Login</button>
-  <br>
-  <button onclick="getUser()">Get User</button>
+  <div>
+    <button onclick="openDialog()">Open File</button>
+    <button onclick="saveDialog()">Save File</button>
+  </div>
+  <textarea id="contents"></textarea>
   <script>
     const invoke = window.__TAURI__.core.invoke;
+    const listen = window.__TAURI__.event.listen;
 
-    async function doLogin(){
-      let result = await invoke("login", {username: 'mogu', password: '123'})
-      console.log(result)
+    async function openDialog() {
+      await invoke("open_file")
     }
 
-    async function getUser(){
-      const user = await invoke("get_user")
-      console.log(user)
+    async function saveDialog() {
+      let contents = document.querySelector("#contents").value;
+      let res = await invoke("save_file", {contents: contents})
+      console.log("result:", res)
     }
+
+    function init(){
+      listen("save_state", data => {
+        console.log("listen state:",  data);
+      });
+
+      listen("contents", data=> {
+        console.log("listen state:",  data);
+        document.querySelector("#contents").value = data.payload;
+      });
+    }
+
+    init();
   </script>
 </html>

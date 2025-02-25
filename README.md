@@ -20,4 +20,8 @@ cargo tauri init
 # debug 
 cargo tauri dev
 ```
+## Part 2 
+
+主进程发送数据给界面，savefile and openfile
+
 
